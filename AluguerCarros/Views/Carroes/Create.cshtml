@@ -1,0 +1,180 @@
+﻿@model AluguerCarros.Models.AlugarCarros.CarroViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<script>
+    function alterarModelos(id) {
+        var modelo = @Model.modelos.Where(m => m.Marca.MarcaID == id);
+
+        console.log("merda")
+        console.log(id)
+    }
+</script>
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Carro</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Matricula, "Matrícula", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.carro.Matricula, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.carro.Matricula, "", new { @class = "text-danger" })
+                <div class="text-danger">
+                    @if (TempData.ContainsKey("Matricula"))
+                    {
+                        @TempData["Matricula"].ToString()
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="carro.Marca" class="form-control">
+                            @foreach (var marca in Model.marcas){
+                                <option value=@marca.Nome onclick="console.log(@marca.MarcaID)">@marca.Nome</option>
+                            }
+                </select>
+                @Html.ValidationMessageFor(model => model.carro.Marca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="carro.Marca" class="form-control">
+                    @foreach (var marca in Model.marcas){
+                        <option value=@marca.Nome>@marca.Nome</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.carro.Modelo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Combustivel, "Combustível", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="carro.Combustivel" class="form-control">
+                    <option value="Diesel">Diesel</option>
+                    <option value="Gasolina">Gasolina</option>
+                    <option value="GPL">GPL</option>
+                    <option value="Elétrico">Elétrico</option>
+                    <option value="Híbrido (Gasolina)">Híbrido (Gasolina)</option>
+                    <option value="Híbrido (Diesel)">Híbrido (Diesel)</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.carro.Combustivel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Lugares, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="carro.Lugares" class="form-control">
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.carro.Lugares, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Portas, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="carro.Portas" class="form-control">
+                    <option value="1-3">1-3</option>
+                    <option value="4-5">4-5</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.carro.Portas, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Preco_Diario, "Preço Diário", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" name="carro.Preco_Diario" min="10" step="10" class="form-control">
+                @Html.ValidationMessageFor(model => model.carro.Preco_Diario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Preco_Mensal, "Preço Mensal", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" name="carro.Preco_Mensal" min="100" step="100" class="form-control">
+                @Html.ValidationMessageFor(model => model.carro.Preco_Mensal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Condicoes, "Condições", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.carro.Condicoes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.carro.Condicoes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Zona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="carro.Zona" class="form-control">
+                    <option value="Aveiro">Aveiro</option>
+                    <option value="Beja">Beja</option>
+                    <option value="Braga">Braga</option>
+                    <option value="Bragança">Bragança</option>
+                    <option value="Castelo Branco">Castelo Branco</option>
+                    <option value="Coimbra">Coimbra</option>
+                    <option value="Évora">Évora</option>
+                    <option value="Faro">Faro</option>
+                    <option value="Guarda">Guarda</option>
+                    <option value="Leiria">Leiria</option>
+                    <option value="Lisboa">Lisboa</option>
+                    <option value="Portalegre">Portalegre</option>
+                    <option value="Porto">Porto</option>
+                    <option value="Santarém">Santarém</option>
+                    <option value="Setúbal">Setúbal</option>
+                    <option value="Viana do Castelo">Viana do Castelo</option>
+                    <option value="Vila Real">Vila Real</option>
+                    <option value="Viseu">Viseu</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.carro.Zona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.carro.Disponivel, "Disponível", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.carro.Disponivel)
+                    @Html.ValidationMessageFor(model => model.carro.Disponivel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

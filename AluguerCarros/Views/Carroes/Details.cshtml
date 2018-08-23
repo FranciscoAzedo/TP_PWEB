@@ -1,0 +1,114 @@
+﻿@model AluguerCarros.Models.AlugarCarros.Carro
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Carro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Matricula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca.MarcaID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo.ModeloID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Combustivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Combustivel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lugares)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lugares)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Portas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Portas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco_Diario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preco_Diario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco_Mensal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preco_Mensal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Condicoes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Condicoes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zona)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disponivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disponivel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonoID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonoID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CarroID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

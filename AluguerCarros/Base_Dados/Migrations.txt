@@ -1,0 +1,15 @@
+﻿Enable-Migrations -ContextTypeName AluguerCarrosContext -MigrationsDirectory Migrations\AlugarCarros
+
+sempre que o modelo é alterado
+add-migration -ConfigurationTypeName AluguerCarros.Migrations.AlugarCarros.Configuration "BaseDadosInicial"
+
+update-database -ConfigurationTypeName AluguerCarros.Migrations.AlugarCarros.Configuration
+
+
+------------------------------------------------------------------------------------
+
+Enable-Migrations -ContextTypeName ApplicationDbContext -MigrationsDirectory Migrations\Identity
+
+add-migration -ConfigurationTypeName AluguerCarros.Migrations.Identity.Configuration "InicialID"
+
+update-database -ConfigurationTypeName AluguerCarros.Migrations.Identity.Configuration

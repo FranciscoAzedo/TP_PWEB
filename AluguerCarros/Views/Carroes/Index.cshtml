@@ -1,0 +1,92 @@
+﻿@model IEnumerable<AluguerCarros.Models.AlugarCarros.Carro>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Matrícula")
+        </th>
+        <th>
+            @Html.DisplayName("Marca")
+        </th>
+        <th>
+            @Html.DisplayName("Modelo")
+        </th>
+        <th>
+            @Html.DisplayName("Combustível")
+        </th>
+        <th>
+            @Html.DisplayName("Lugares")
+        </th>
+        <th>
+            @Html.DisplayName("Portas")
+        </th>
+        <th>
+            @Html.DisplayName("Preço Diário")
+        </th>
+        <th>
+            @Html.DisplayName("Preço Mensal")
+        </th>
+        <th>
+            @Html.DisplayName("Zona")
+        </th>
+        <th>
+            @Html.DisplayName("Disponível")
+        </th>
+        <th>
+            @Html.DisplayName("Dono")
+        </th>
+        <th></th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Combustivel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lugares)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Portas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco_Diario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco_Mensal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zona)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disponivel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonoID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CarroID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CarroID }) |
+            @Html.ActionLink("Requisitar", "Create", "Pedido_Aluguer", new { CarroID = item.CarroID },null)
+        </td>
+    </tr>
+}
+
+</table>
