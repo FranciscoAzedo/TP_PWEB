@@ -1,32 +1,103 @@
-﻿@model IEnumerable<AluguerCarros.Models.AlugarCarros.Pedido_Aluguer>
+﻿@model AluguerCarros.Models.AlugarCarros.PedidosViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Pedidos Pendentes</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ClienteID)
+            @Html.DisplayName("Matrícula")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dataInicio)
+            @Html.DisplayName("Marca")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dataFim)
+            @Html.DisplayName("Modelo")
+        </th>
+        <th>
+            @Html.DisplayName("Data Início")
+        </th>
+        <th>
+            @Html.DisplayName("Data Fim")
+        </th>
+        <th>
+            @Html.DisplayName("Cliente")
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model.pedidos_pendentes)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td>
+                <button onclick="location.href='@Url.Action("TratarPedido", new { id = item.PedidoID, Estado = true })'">Aceitar</button>
+                <button onclick="location.href='@Url.Action("TratarPedido", new { id = item.PedidoID, Estado = false })'">Recusar</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Pedidos Ativos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Matrícula")
+        </th>
+        <th>
+            @Html.DisplayName("Marca")
+        </th>
+        <th>
+            @Html.DisplayName("Modelo")
+        </th>
+        <th>
+            @Html.DisplayName("Data Início")
+        </th>
+        <th>
+            @Html.DisplayName("Data Fim")
+        </th>
+        <th>
+            @Html.DisplayName("Cliente")
+        </th>
+        <th>
+            @Html.DisplayName("Estado Requisição")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.pedidos_ativos)
+    {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ClienteID)
+            @Html.DisplayFor(modelItem => item.Veiculo.Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veiculo.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veiculo.Modelo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.dataInicio)
@@ -35,11 +106,77 @@
             @Html.DisplayFor(modelItem => item.dataFim)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PedidoID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PedidoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PedidoID })
+            @Html.DisplayFor(modelItem => item.Cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @if (item.Estado == "Espera de Avaliacao")
+            {
+                if (item.aval_Cli == false)
+                {
+                    <button onclick="location.href='@Url.Action("Create", "Avaliacaos", new { id = item.PedidoID, Cliente = item.Cliente })'">Avaliar Cliente</button>
+                }
+            }
         </td>
     </tr>
-}
+    }
+
+</table>
+
+<h2>Pedidos Concluídos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Matrícula")
+        </th>
+        <th>
+            @Html.DisplayName("Marca")
+        </th>
+        <th>
+            @Html.DisplayName("Modelo")
+        </th>
+        <th>
+            @Html.DisplayName("Data Início")
+        </th>
+        <th>
+            @Html.DisplayName("Data Fim")
+        </th>
+        <th>
+            @Html.DisplayName("Cliente")
+        </th>
+        <th>
+            @Html.DisplayName("Estado Requisição")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.pedidos_resolvidos)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veiculo.Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veiculo.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veiculo.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dataFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+    </tr>
+    }
 
 </table>

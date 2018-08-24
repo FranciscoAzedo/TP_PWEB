@@ -1,0 +1,85 @@
+﻿@model AluguerCarros.Models.AlugarCarros.Avaliacao_Alugador
+
+@{
+    ViewBag.Title = "Avaliacao_Dono";
+}
+
+<h2>Avaliacao_Dono</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Avaliacao_Alugador</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tempo_Resposta, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="Tempo_Resposta" class="form-control">
+                <option value=1>1 estrela</option>
+                <option value=2>2 estrelas</option>
+                <option value=3>3 estrelas</option>
+                <option value=4>4 estrelas</option>
+                <option value=5>5 estrelas</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Tempo_Resposta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Simpatia, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="Simpatia" class="form-control">
+                <option value=1>1 estrela</option>
+                <option value=2>2 estrelas</option>
+                <option value=3>3 estrelas</option>
+                <option value=4>4 estrelas</option>
+                <option value=5>5 estrelas</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Simpatia, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.Resultado, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="Resultado" class="form-control">
+                <option value=1>1 estrela</option>
+                <option value=2>2 estrelas</option>
+                <option value=3>3 estrelas</option>
+                <option value=4>4 estrelas</option>
+                <option value=5>5 estrelas</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Resultado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" hidden="hidden">
+        @Html.LabelFor(model => model.PedidoID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PedidoID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PedidoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" hidden="hidden">
+        @Html.LabelFor(model => model.Dono, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Dono, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Dono, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

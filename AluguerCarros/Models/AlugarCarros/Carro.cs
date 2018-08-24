@@ -26,7 +26,7 @@ namespace AluguerCarros.Models.AlugarCarros
         public virtual IList<String> Locais_Entrega { get; set; }
         public bool Disponivel { get; set; }
 
-        public string DonoID { get; set; }
+        public string Dono { get; set; }
 
         public virtual IList<Avaliacao_Carro> Avaliacao_Veiculo { get; set; }
     }

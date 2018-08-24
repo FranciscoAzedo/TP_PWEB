@@ -11,5 +11,7 @@ namespace AluguerCarros.Models.AlugarCarros
         [Key]
         public int AvaliacaoID { get; set; }
         public int Resultado { get; set; }
+        public string Tipo { get; set; }
+        public int PedidoID { get; set; }
     }
 }

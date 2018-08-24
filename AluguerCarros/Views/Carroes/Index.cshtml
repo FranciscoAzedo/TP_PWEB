@@ -1,14 +1,54 @@
-﻿@model IEnumerable<AluguerCarros.Models.AlugarCarros.Carro>
+﻿@model AluguerCarros.Models.AlugarCarros.CarroViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Oferta de Carros</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div style="width: 100px">
+    <div class="col-md-0">
+        <h5>Combustivel</h5>
+        <select name="carro.Combustivel" class="form-control">
+            <option value="Diesel">Diesel</option>
+            <option value="Gasolina">Gasolina</option>
+            <option value="GPL">GPL</option>
+            <option value="Elétrico">Elétrico</option>
+            <option value="Híbrido (Gasolina)">Híbrido (Gasolina)</option>
+            <option value="Híbrido (Diesel)">Híbrido (Diesel)</option>
+        </select>
+    </div>
+
+    <div class="col-md-0" style="position: relative; width:100%">
+        <h5>Marca</h5>
+        @*<select name="carro.Marca" class="form-control" @*onchange="location.href='@Url.Action("Filtrar", "Carroes", new { id = item.CarroID })'">*@
+        <select name="carro.Marca" class="form-control" onchange="CarregaModelos()">
+            @foreach (var marca in Model.marcas)
+            {
+                <option value=@marca.Nome> @marca.Nome</option>
+            }
+        </select>
+    </div>
+
+    <script>
+        function CarregaModelos() {
+             = document.querySelector('body > div.container.body-content > div > div:nth-child(2) > select').value;
+            alert(Model.teste);
+        }
+    </script>
+
+    <div class="col-md-0" style="position: relative; width:100%">
+        <h5>Modelo</h5>
+        <select name="carro.Modelo" class="form-control">
+            @foreach (var modelo in Model.modelos)
+            {
+                <option value=@modelo.Nome>@modelo.Nome</option>
+            }
+        </select>
+    </div>
+    <button type="button">Procurar</button>
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -46,7 +86,7 @@
         </th>
         <th></th>
     </tr>
-@foreach (var item in Model) {
+@foreach (var item in Model.carros) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Matricula)
@@ -79,12 +119,11 @@
             @Html.DisplayFor(modelItem => item.Disponivel)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DonoID)
+            @Html.DisplayFor(modelItem => item.Dono)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CarroID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CarroID }) |
-            @Html.ActionLink("Requisitar", "Create", "Pedido_Aluguer", new { CarroID = item.CarroID },null)
+            <button onclick="location.href='@Url.Action("Details", new { id = item.CarroID })'">Detallhes</button>
+            <button onclick="location.href='@Url.Action("Create", "Pedido_Aluguer", new { CarroID = item.CarroID })'">Requisitar</button>
         </td>
     </tr>
 }

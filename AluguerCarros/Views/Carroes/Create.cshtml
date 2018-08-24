@@ -4,16 +4,6 @@
     ViewBag.Title = "Create";
 }
 
-
-<script>
-    function alterarModelos(id) {
-        var modelo = @Model.modelos.Where(m => m.Marca.MarcaID == id);
-
-        console.log("merda")
-        console.log(id)
-    }
-</script>
-
 <h2>Create</h2>
 
 
@@ -43,9 +33,9 @@
             @Html.LabelFor(model => model.carro.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <select name="carro.Marca" class="form-control">
-                            @foreach (var marca in Model.marcas){
-                                <option value=@marca.Nome onclick="console.log(@marca.MarcaID)">@marca.Nome</option>
-                            }
+                    @foreach (var marca in Model.marcas){
+                        <option value=@marca.Nome onclick="console.log(@marca.MarcaID)">@marca.Nome</option>
+                    }
                 </select>
                 @Html.ValidationMessageFor(model => model.carro.Marca, "", new { @class = "text-danger" })
             </div>
@@ -54,9 +44,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.carro.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select name="carro.Marca" class="form-control">
-                    @foreach (var marca in Model.marcas){
-                        <option value=@marca.Nome>@marca.Nome</option>
+                <select name="carro.Modelo" class="form-control">
+                    @foreach (var modelo in Model.modelos){
+                        <option value=@modelo.Nome>@modelo.Nome</option>
                     }
                 </select>
                 @Html.ValidationMessageFor(model => model.carro.Modelo, "", new { @class = "text-danger" })

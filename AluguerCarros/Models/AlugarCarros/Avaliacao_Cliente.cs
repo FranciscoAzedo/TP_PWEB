@@ -9,5 +9,6 @@ namespace AluguerCarros.Models.AlugarCarros
     {
         public int Comportamento { get; set; }
         public int Estado_Veiculo { get; set; }
+        public string Cliente { get; set; }
     }
 }

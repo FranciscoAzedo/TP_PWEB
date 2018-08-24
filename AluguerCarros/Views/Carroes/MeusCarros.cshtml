@@ -1,0 +1,92 @@
+﻿@model IEnumerable<AluguerCarros.Models.AlugarCarros.Carro>
+
+@{
+    ViewBag.Title = "MeusCarros";
+}
+
+<h2>MeusCarros</h2>
+
+<p>
+    @Html.ActionLink("Registar Carro", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Combustivel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lugares)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Portas)
+        </th>
+        <th>
+            @Html.DisplayName("Preço Diário")
+        </th>
+        <th>
+            @Html.DisplayName("Preço Mensal")
+        </th>
+        <th>
+            @Html.DisplayName("Condições")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disponivel)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Combustivel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lugares)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Portas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco_Diario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco_Mensal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Condicoes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zona)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disponivel)
+        </td>
+        <td>
+            <button onclick="location.href='@Url.Action("Edit", new { id = item.CarroID })'">Editar</button>
+            <button onclick="location.href='@Url.Action("Details", new { id = item.CarroID })'">Detallhes</button>
+        </td>
+    </tr>
+}
+
+</table>

@@ -10,7 +10,11 @@ namespace AluguerCarros.Models.AlugarCarros
     {
         [Key]
         public int PedidoID { get; set; }
-        public string ClienteID { get; set; }
+        public string Cliente { get; set; }
+        public string Estado { get; set; }
+        public bool aval_Cli { get; set; }
+        public bool aval_Dono { get; set; }
+        public bool aval_Carro { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

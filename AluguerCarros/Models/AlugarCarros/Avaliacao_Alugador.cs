@@ -9,5 +9,6 @@ namespace AluguerCarros.Models.AlugarCarros
     {
         public int Tempo_Resposta { get; set; }
         public int Simpatia { get; set; }
+        public string Dono { get; set; }
     }
 }

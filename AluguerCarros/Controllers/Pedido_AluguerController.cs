@@ -19,7 +19,130 @@ namespace AluguerCarros.Controllers
         // GET: Pedido_Aluguer
         public ActionResult Index()
         {
-            return View(db.Pedidos.ToList());
+            IEnumerable<Pedido_Aluguer> pedidos_pendentes = db.Pedidos.Where(p => p.Veiculo.Dono == User.Identity.Name).Where(p=> p.Estado == "Pendente");
+            IEnumerable<Pedido_Aluguer> pedidos_ativos = db.Pedidos.Where(p => p.Veiculo.Dono == User.Identity.Name).Where(p => p.Estado == "Aceite" || p.Estado == "Espera de Avaliacao");
+            IEnumerable<Pedido_Aluguer> pedidos_resolvidos = db.Pedidos.Where(p => p.Veiculo.Dono == User.Identity.Name).Where(p => p.Estado == "Recusado" || p.Estado == "Concluido" || p.Estado == "Cancelado");
+            IEnumerable<Carro> carros = db.Carros.ToList();
+            PedidosViewModel pedidos = new PedidosViewModel();
+            foreach (var pedido in pedidos_pendentes)
+            {
+                foreach (var carro in carros)
+                {
+                    if (carro.CarroID == pedido.CarroID)
+                    {
+                        pedido.Veiculo = carro;
+                        break;
+                    }
+                }
+            }
+            foreach (var pedido in pedidos_ativos)
+            {
+                if (pedido.Estado == "Aceite" && pedido.dataFim < DateTime.Today)
+                {
+                    pedido.Estado = "Espera de Avaliacao";
+                    pedido.aval_Carro = false;
+                    pedido.aval_Cli = false;
+                    pedido.aval_Dono = false;
+                    db.Entry(pedido).State = EntityState.Modified; 
+                }
+                foreach (var carro in carros)
+                {
+                    if (carro.CarroID == pedido.CarroID)
+                    {
+                        pedido.Veiculo = carro;
+                        break;
+                    }
+                }
+            }
+            foreach (var pedido in pedidos_resolvidos)
+            {
+                foreach (var carro in carros)
+                {
+                    if (carro.CarroID == pedido.CarroID)
+                    {
+                        pedido.Veiculo = carro;
+                        break;
+                    }
+                }
+            }
+            db.SaveChanges();
+            pedidos.pedidos_resolvidos = pedidos_resolvidos;
+            pedidos.pedidos_ativos = pedidos_ativos;
+            pedidos.pedidos_pendentes = pedidos_pendentes;
+            return View(pedidos);
+        }
+
+        public ActionResult CancelarPedido(int id)
+        {
+            Pedido_Aluguer p = new Pedido_Aluguer();
+            IEnumerable<Pedido_Aluguer> pedidos = db.Pedidos.ToList();
+            foreach (var pedido in pedidos)
+            {
+                if(pedido.PedidoID == id)
+                {
+                    p = pedido;
+                    break;
+                }
+            }
+            p.Estado = "Cancelado";
+            db.Entry(p).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("PedidosEfetuados", "Pedido_Aluguer");
+        }        
+        
+        public ActionResult PedidosEfetuados()
+        {
+            IEnumerable<Pedido_Aluguer> pedidos_pendentes = db.Pedidos.Where(p => p.Cliente == User.Identity.Name).Where(p => p.Estado == "Pendente");
+            IEnumerable<Pedido_Aluguer> pedidos_ativos = db.Pedidos.Where(p => p.Cliente == User.Identity.Name).Where(p=>p.Estado == "Aceite" || p.Estado == "Espera de Avaliacao");
+            IEnumerable<Pedido_Aluguer> pedidos_resolvidos = db.Pedidos.Where(p => p.Cliente == User.Identity.Name).Where(p => p.Estado == "Recusado" || p.Estado == "Concluido" || p.Estado == "Cancelado");
+            IEnumerable<Carro> carros = db.Carros.ToList();
+            PedidosViewModel pedidos = new PedidosViewModel();
+            foreach (var pedido in pedidos_pendentes)
+            {
+                foreach (var carro in carros)
+                {
+                    if (carro.CarroID == pedido.CarroID)
+                    {
+                        pedido.Veiculo = carro;
+                        break;
+                    }
+                }
+            }
+            foreach (var pedido in pedidos_ativos)
+            {
+                if (pedido.Estado == "Aceite" && pedido.dataFim < DateTime.Today)
+                {
+                    pedido.Estado = "Espera de Avaliacao";
+                    pedido.aval_Carro = false;
+                    pedido.aval_Cli = false;
+                    pedido.aval_Dono = false;
+                    db.Entry(pedido).State = EntityState.Modified;
+                }
+                foreach (var carro in carros)
+                {
+                    if (carro.CarroID == pedido.CarroID)
+                    {
+                        pedido.Veiculo = carro;
+                        break;
+                    }
+                } 
+            }
+            foreach (var pedido in pedidos_resolvidos)
+            {
+                foreach (var carro in carros)
+                {
+                    if (carro.CarroID == pedido.CarroID)
+                    {
+                        pedido.Veiculo = carro;
+                        break;
+                    }
+                }
+            }
+            db.SaveChanges();
+            pedidos.pedidos_pendentes = pedidos_pendentes;
+            pedidos.pedidos_ativos = pedidos_ativos;
+            pedidos.pedidos_resolvidos = pedidos_resolvidos;
+            return View(pedidos);
         }
 
         // GET: Pedido_Aluguer/Details/5
@@ -37,16 +160,45 @@ namespace AluguerCarros.Controllers
             return View(pedido_Aluguer);
         }
 
-        // GET: Pedido_Aluguer/Create
-        public ActionResult Create(int? CarroID)
+        public ActionResult TratarPedido(int id, bool Estado)
         {
-            if (CarroID == null)
+            IEnumerable<Pedido_Aluguer> pedidos = db.Pedidos.Where(p => p.PedidoID == id);
+            Pedido_Aluguer ped = pedidos.ElementAt(0);
+            if (Estado == false)
+            {
+                ped.Estado = "Recusado";
+                db.Entry(ped).State = EntityState.Modified;
+                db.SaveChanges();                
+            }
+            else
+            {
+                pedidos = db.Pedidos.Where(p => p.CarroID == ped.CarroID).Where(p => p.Estado == "Pendente");
+                foreach(var p in pedidos)
+                {
+                    if(p.dataInicio <= ped.dataFim) {
+                        p.Estado = "Recusado";
+                        db.Entry(p).State = EntityState.Modified;
+                    }
+                }
+                ped.Estado = "Aceite";
+                ped.Veiculo.Disponivel = false;
+                db.Entry(ped).State = EntityState.Modified;
+                db.Entry(ped.Veiculo).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Pedido_Aluguer");
+        }
+
+        // GET: Pedido_Aluguer/Create
+        public ActionResult Create(int CarroID)
+        {
+            /*if (CarroID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            }*/
             var model = new Pedido_Aluguer();
-            model.Veiculo = db.Carros.Find(CarroID);
-            model.CarroID = model.Veiculo.CarroID;
+            model.CarroID = CarroID;
             return View(model);
         }
 
@@ -57,12 +209,29 @@ namespace AluguerCarros.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PedidoID,ClienteID,dataInicio,dataFim,CarroID")] Pedido_Aluguer pedido_Aluguer)
         {
-            if (ModelState.IsValid)
+            if (pedido_Aluguer.dataInicio != null && pedido_Aluguer.dataInicio < DateTime.Today)
             {
-                pedido_Aluguer.ClienteID = User.Identity.GetUserId();
-                db.Pedidos.Add(pedido_Aluguer);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Carroes");
+                TempData["DataInicial"] = "Insira uma data atual";
+                if (pedido_Aluguer.dataInicio != null && pedido_Aluguer.dataInicio > pedido_Aluguer.dataFim)
+                {
+                    TempData["DataFinal"] = "Data Fim inferior à Data Inicial";
+                }
+            }
+            else if (pedido_Aluguer.dataInicio != null && pedido_Aluguer.dataInicio > pedido_Aluguer.dataFim)
+            {
+                TempData["DataFinal"] = "Data Fim inferior à Data Inicial";
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    pedido_Aluguer.Veiculo = db.Carros.Find(pedido_Aluguer.CarroID);
+                    pedido_Aluguer.Estado = "Pendente"; 
+                    pedido_Aluguer.Cliente = User.Identity.Name;
+                    db.Pedidos.Add(pedido_Aluguer);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Carroes");
+                }
             }
 
             return View(pedido_Aluguer);

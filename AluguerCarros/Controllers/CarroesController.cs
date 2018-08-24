@@ -22,7 +22,17 @@ namespace AluguerCarros.Controllers
         // GET: Carroes
         public ActionResult Index()
         {
-            return View(db.Carros.ToList());
+            CarroViewModel cvm = new CarroViewModel();
+            cvm.carros = db.Carros.Where(c => c.Dono != User.Identity.Name).Where(c => c.Disponivel == true);
+            cvm.marcas = db.Marcas.ToList();
+            cvm.modelos = db.Modelos.ToList();
+            return View(cvm);
+        }
+
+        // GET: Carroes
+        public ActionResult MeusCarros()
+        {
+            return View(db.Carros.Where(c=>c.Dono == User.Identity.Name));
         }
 
         // GET: Carroes/Details/5
@@ -62,12 +72,26 @@ namespace AluguerCarros.Controllers
             
             if (carro.Matricula != null && matricula.VerificaMatricula(carro.Matricula))
             {
+                IEnumerable<Carro> carros = db.Carros.ToList();
+
+                foreach(var c in carros)
+                {
+                    if (c.Matricula == carro.Matricula && c.CarroID != carro.CarroID)
+                    {
+                        TempData["Matricula"] = "Já existe um carro com esta matrícula";
+                        cvm.marcas = db.Marcas.ToList();
+                        cvm.modelos = db.Modelos.ToList();
+                        cvm.carro = carro;
+                        return View(cvm);
+                    }
+                }
+                
                 if (ModelState.IsValid)
                 {
-                    carro.DonoID = User.Identity.GetUserName();
+                    carro.Dono = User.Identity.GetUserName();
                     db.Carros.Add(carro);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MeusCarros");
                 }
             }
             else
@@ -105,10 +129,10 @@ namespace AluguerCarros.Controllers
         {
             if (ModelState.IsValid)
             {
-                carro.DonoID = User.Identity.GetUserName();
+                carro.Dono = User.Identity.GetUserName();
                 db.Entry(carro).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MeusCarros");
             }
             return View(carro);
         }

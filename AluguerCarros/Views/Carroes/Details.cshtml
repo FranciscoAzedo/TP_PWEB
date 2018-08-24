@@ -23,7 +23,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Marca.MarcaID)
+            @Html.DisplayFor(model => model.Marca)
         </dd>
 
         <dt>
@@ -31,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Modelo.ModeloID)
+            @Html.DisplayFor(model => model.Modelo)
         </dd>
 
         <dt>
@@ -99,16 +99,22 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DonoID)
+            @Html.DisplayNameFor(model => model.Dono)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DonoID)
+            @Html.DisplayFor(model => model.Dono)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CarroID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Model.Dono == User.Identity.Name)
+    {
+        @Html.ActionLink("Voltar", "MeusCarros");
+    }
+    @if (Model.Dono != User.Identity.Name)
+    {
+        @Html.ActionLink("Voltar", "Index");
+    }
 </p>

@@ -194,6 +194,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AvaliacaosController.cs" />
     <Compile Include="Controllers\CarroesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -253,6 +254,26 @@
     <Compile Include="Migrations\AlugarCarros\201808221934376_Modelo_Marca1.Designer.cs">
       <DependentUpon>201808221934376_Modelo_Marca1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\AlugarCarros\201808231243568_CarroDono.cs" />
+    <Compile Include="Migrations\AlugarCarros\201808231243568_CarroDono.Designer.cs">
+      <DependentUpon>201808231243568_CarroDono.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AlugarCarros\201808231256257_EstadoRequisicao.cs" />
+    <Compile Include="Migrations\AlugarCarros\201808231256257_EstadoRequisicao.Designer.cs">
+      <DependentUpon>201808231256257_EstadoRequisicao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AlugarCarros\201808231507504_NomeCliente.cs" />
+    <Compile Include="Migrations\AlugarCarros\201808231507504_NomeCliente.Designer.cs">
+      <DependentUpon>201808231507504_NomeCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AlugarCarros\201808241700259_Avalicaoes.cs" />
+    <Compile Include="Migrations\AlugarCarros\201808241700259_Avalicaoes.Designer.cs">
+      <DependentUpon>201808241700259_Avalicaoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AlugarCarros\201808241723427_Avalicaoes_Clientes.cs" />
+    <Compile Include="Migrations\AlugarCarros\201808241723427_Avalicaoes_Clientes.Designer.cs">
+      <DependentUpon>201808241723427_Avalicaoes_Clientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AlugarCarros\Configuration.cs" />
     <Compile Include="Migrations\Identity\201808171327396_InicialID.cs" />
     <Compile Include="Migrations\Identity\201808171327396_InicialID.Designer.cs">
@@ -272,6 +293,7 @@
     <Compile Include="Models\AlugarCarros\CarroViewModel.cs" />
     <Compile Include="Models\AlugarCarros\Marca.cs" />
     <Compile Include="Models\AlugarCarros\Modelo.cs" />
+    <Compile Include="Models\AlugarCarros\PedidosViewModel.cs" />
     <Compile Include="Models\AlugarCarros\Pedido_Aluguer.cs" />
     <Compile Include="Models\AlugarCarros\ProfileViewModel.cs" />
     <Compile Include="Models\DataContext\AluguerCarrosContext.cs" />
@@ -353,6 +375,18 @@
     <Content Include="Views\Pedido_Aluguer\Details.cshtml" />
     <Content Include="Views\Pedido_Aluguer\Edit.cshtml" />
     <Content Include="Views\Pedido_Aluguer\Index.cshtml" />
+    <Content Include="Views\Carroes\MeusCarros.cshtml" />
+    <Content Include="Views\Pedido_Aluguer\TratarPedido.cshtml" />
+    <Content Include="Views\Pedido_Aluguer\PedidosEfetuados.cshtml" />
+    <Content Include="Views\Pedido_Aluguer\CancelarPedido.cshtml" />
+    <Content Include="Views\Carroes\Filtrar.cshtml" />
+    <Content Include="Views\Avaliacaos\Create.cshtml" />
+    <Content Include="Views\Avaliacaos\Delete.cshtml" />
+    <Content Include="Views\Avaliacaos\Details.cshtml" />
+    <Content Include="Views\Avaliacaos\Edit.cshtml" />
+    <Content Include="Views\Avaliacaos\Index.cshtml" />
+    <Content Include="Views\Avaliacaos\Avaliacao_Carro.cshtml" />
+    <Content Include="Views\Avaliacaos\Avaliacao_Dono.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -408,6 +442,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\AlugarCarros\201808221934376_Modelo_Marca1.resx">
       <DependentUpon>201808221934376_Modelo_Marca1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\AlugarCarros\201808231243568_CarroDono.resx">
+      <DependentUpon>201808231243568_CarroDono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\AlugarCarros\201808231256257_EstadoRequisicao.resx">
+      <DependentUpon>201808231256257_EstadoRequisicao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\AlugarCarros\201808231507504_NomeCliente.resx">
+      <DependentUpon>201808231507504_NomeCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\AlugarCarros\201808241700259_Avalicaoes.resx">
+      <DependentUpon>201808241700259_Avalicaoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\AlugarCarros\201808241723427_Avalicaoes_Clientes.resx">
+      <DependentUpon>201808241723427_Avalicaoes_Clientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Identity\201808171327396_InicialID.resx">
       <DependentUpon>201808171327396_InicialID.cs</DependentUpon>

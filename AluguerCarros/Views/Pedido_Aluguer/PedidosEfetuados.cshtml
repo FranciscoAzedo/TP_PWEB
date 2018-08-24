@@ -1,0 +1,194 @@
+﻿@model AluguerCarros.Models.AlugarCarros.PedidosViewModel
+
+@{
+    ViewBag.Title = "PedidosEfetuados";
+}
+
+<h2>Pedidos Pendentes</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Matrícula")
+        </th>
+        <th>
+            @Html.DisplayName("Marca")
+        </th>
+        <th>
+            @Html.DisplayName("Modelo")
+        </th>
+        <th>
+            @Html.DisplayName("Dono")
+        </th>
+
+        <th>
+            @Html.DisplayName("Data Início")
+        </th>
+        <th>
+            @Html.DisplayName("Data Entrega")
+        </th>
+        <th>
+            @Html.DisplayName("Estado")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.pedidos_pendentes)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Dono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <button onclick="location.href='@Url.Action("CancelarPedido", new { id = item.PedidoID})'">Cancelar Pedido</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Pedidos Ativos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Matrícula")
+        </th>
+        <th>
+            @Html.DisplayName("Marca")
+        </th>
+        <th>
+            @Html.DisplayName("Modelo")
+        </th>
+        <th>
+            @Html.DisplayName("Dono")
+        </th>
+
+        <th>
+            @Html.DisplayName("Data Início")
+        </th>
+        <th>
+            @Html.DisplayName("Data Entrega")
+        </th>
+        <th>
+            @Html.DisplayName("Estado")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.pedidos_ativos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Dono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @if (item.Estado == "Espera de Avaliacao")
+                {
+                    if (item.aval_Carro == false)
+                    {
+                        <button onclick="location.href='@Url.Action("Avaliacao_Carro", "Avaliacaos", new { id = item.PedidoID, CarroID = item.CarroID})'">Avaliar Carro</button>
+                    }
+                    if (item.aval_Dono == false)
+                    {
+                        <button onclick="location.href='@Url.Action("Avaliacao_Dono", "Avaliacaos", new { id = item.PedidoID, Dono = item.Veiculo.Dono })'">Avaliar Dono</button>
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Pedidos Resolvidos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Matrícula")
+        </th>
+        <th>
+            @Html.DisplayName("Marca")
+        </th>
+        <th>
+            @Html.DisplayName("Modelo")
+        </th>
+        <th>
+            @Html.DisplayName("Dono")
+        </th>
+
+        <th>
+            @Html.DisplayName("Data Início")
+        </th>
+        <th>
+            @Html.DisplayName("Data Entrega")
+        </th>
+        <th>
+            @Html.DisplayName("Estado")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.pedidos_resolvidos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Veiculo.Dono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+        </tr>
+    }
+
+</table>

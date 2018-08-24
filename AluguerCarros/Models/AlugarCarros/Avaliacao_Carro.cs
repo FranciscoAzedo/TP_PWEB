@@ -9,5 +9,6 @@ namespace AluguerCarros.Models.AlugarCarros
     {
         public int Estado_Veiculo { get; set; }
         public int Limpeza_Veiculo { get; set; }
+        public int CarroID { get; set; }
     }
 }

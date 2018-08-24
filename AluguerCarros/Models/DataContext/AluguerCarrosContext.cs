@@ -17,5 +17,9 @@ namespace AluguerCarros.Models.DataContext
         public DbSet<Avaliacao> Avaliacoes { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Modelo> Modelos { get; set; }
+
+        public System.Data.Entity.DbSet<AluguerCarros.Models.AlugarCarros.Avaliacao_Carro> Avaliacao_Carro { get; set; }
+
+        public System.Data.Entity.DbSet<AluguerCarros.Models.AlugarCarros.Avaliacao_Alugador> Avaliacao_Alugador { get; set; }
     }
 }
